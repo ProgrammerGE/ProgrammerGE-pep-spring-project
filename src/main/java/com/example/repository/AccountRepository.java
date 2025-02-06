@@ -10,6 +10,6 @@ import com.example.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer>{
 
-    @Query("FROM ACCOUNT WHERE username = :userVar")
+    @Query("FROM Account WHERE username = :userVar")
     Account doesUsernameAlreadyExist(@Param("userVar") String name);
 }

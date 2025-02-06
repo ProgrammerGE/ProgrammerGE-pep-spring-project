@@ -44,7 +44,7 @@ public class SocialMediaController {
       * TODO: Work on this
       */
     @PostMapping(value = "/register")
-    public ResponseEntity createAccount(@RequestBody Account requestBod) throws Exception{
+    public ResponseEntity createNewAccount(@RequestBody Account requestBod) throws Exception{
         try{            
             Account newAccount = accntService.createAccount(requestBod);
             return ResponseEntity.status(200).body(newAccount);
@@ -60,7 +60,7 @@ public class SocialMediaController {
      * - If the login is not successful, the response status should be 401. (Unauthorized)
      * TODO: Work on this
      */
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/login")
     public ResponseEntity verifyAccount(@RequestBody Account requestBod){
         Account accnt = accntService.getAccount(requestBod);
         if(accnt == null)

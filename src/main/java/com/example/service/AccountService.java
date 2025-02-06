@@ -23,12 +23,15 @@ public class AccountService {
      */
     public Account createAccount(Account account) throws Exception {
         if(account.getUsername().isEmpty() || account.getPassword().length() < 4){
-            throw new DuplicateUserException();
-        }
-        else if(accntReposit.doesUsernameAlreadyExist(account.getUsername()) != null){
             throw new LoginFailureException();
         }
-        return accntReposit.save(account);
+        else if(accntReposit.doesUsernameAlreadyExist(account.getUsername()) != null){
+            throw new DuplicateUserException();
+        }
+        Account target = accntReposit.doesUsernameAlreadyExist(account.getUsername());
+        List<Account> listAccounts = accntReposit.findAll();
+        Account newAccount = accntReposit.save(account);
+        return newAccount;
     }
 
     /*The login will be successful if and only if the username and password provided in the request 

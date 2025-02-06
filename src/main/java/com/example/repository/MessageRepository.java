@@ -12,6 +12,6 @@ import com.example.entity.Message;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    @Query("FROM MESSAGE WHERE postedBy = :postedVar")
+    @Query("FROM Message WHERE postedBy = :postedVar")
     List<Message> getAllUsersMessages(@Param("postedVar") int postedBy);
 }
