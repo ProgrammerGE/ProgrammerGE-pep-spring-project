@@ -4,19 +4,16 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.entity.Message;
 import com.example.repository.MessageRepository;
 
 //Edited by Gabriel Evans
-@Component
+@Service
 public class MessageService {
-    private MessageRepository msgReposit;
-
     @Autowired
-    public MessageService(MessageRepository messageRepository){
-        this.msgReposit = messageRepository;
-    }
+    private MessageRepository msgReposit;
 
     public List<Message> getAllMessages() {
         return msgReposit.findAll();

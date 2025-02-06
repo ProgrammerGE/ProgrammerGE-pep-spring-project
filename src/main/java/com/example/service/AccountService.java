@@ -4,20 +4,17 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.entity.Account;
 import com.example.exception.*;
 import com.example.repository.AccountRepository;
 
 //Edited by Gabriel Evans
-@Component
+@Service
 public class AccountService {
-    private AccountRepository accntReposit;
-
     @Autowired
-    public AccountService(AccountRepository accountRepository){
-        this.accntReposit = accountRepository;
-    }
+    private AccountRepository accntReposit;
     
     /*The registration will be successful if and only if the username is not blank, the password is at least 4 characters long, 
         and an Account with that username does not already exist. */
