@@ -25,9 +25,12 @@ public class MessageService {
     /*The creation of the message will be successful if and only if the messageText is not blank, 
         is not over 255 characters, and postedBy refers to a real, existing user. */
     public Message createMessage(Message msg) {
-        if(msg.getMessageText().isEmpty() || msg.getMessageText().length() > 255){
+        //The getAllUsersMessages() helps check if the foreign key points to real existing user
+        if(msg.getMessageText().isEmpty() || msg.getMessageText().length() > 255
+        || msgReposit.getAllUsersMessages(msg.getPostedBy()).isEmpty()){
             return null;
         }
+        
         return msgReposit.save(msg);
 
     }
