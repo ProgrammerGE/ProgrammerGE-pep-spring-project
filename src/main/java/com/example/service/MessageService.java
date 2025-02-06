@@ -10,6 +10,9 @@ import com.example.entity.Message;
 import com.example.repository.MessageRepository;
 
 //Edited by Gabriel Evans
+/* I used the examples from the lectures and coding labs to help construct methods for the service class.
+ * Along with my previous DAO methods as references from the previous project.
+ */
 @Service
 public class MessageService {
     @Autowired
@@ -21,7 +24,7 @@ public class MessageService {
 
     /*The creation of the message will be successful if and only if the messageText is not blank, 
         is not over 255 characters, and postedBy refers to a real, existing user. */
-    public Message addMessage(Message msg) {
+    public Message createMessage(Message msg) {
         if(msg.getMessageText().isEmpty() || msg.getMessageText().length() > 255){
             return null;
         }
@@ -30,27 +33,29 @@ public class MessageService {
     }
 
     public Message getMessageById(int msgID){
-        return  msgReposit.getById(msgID);
+        return  msgReposit.getMessageById(msgID);
     }
 
     public List<Message> getAllMessagesByWhoPosted(int poster_ID){
         return msgReposit.getAllUsersMessages(poster_ID);
     }
 
-    public Message deleteMessage(int msgID){
-        Message msg = msgReposit.getById(msgID);
+    public Integer deleteMessage(int msgID){
+        Message msg = msgReposit.getMessageById(msgID);
         if(msg == null){
             return null;
         }
         msgReposit.deleteById(msgID);
-        return msg;
+        return 1;
     }
 
     /*The update of a message should be successful if and only if the message id already 
     exists and the new message_text is not blank and is not over 255 characters. */
     public Message updateMessage(int msgID, String updateText){
-        if(updateText.isEmpty() || updateText.length() > 255 ||
-        this.msgReposit.getById(msgID) == null){
+        String [] splitMessage = updateText.split("\"");
+        //the [3] block contains the updatedText message to test
+        if(splitMessage[3].isEmpty() || splitMessage[3].length() > 255 ||
+        this.msgReposit.getMessageById(msgID) == null){
             return null;
         }
         Optional<Message> compareMessage = msgReposit.findById(msgID);
@@ -59,6 +64,6 @@ public class MessageService {
             msg.setMessageText(updateText);
             msgReposit.save(msg);
         }
-        return msgReposit.getById(msgID);
+        return this.msgReposit.getMessageById(msgID);
     }
 }

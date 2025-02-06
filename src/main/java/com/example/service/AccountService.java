@@ -11,6 +11,10 @@ import com.example.exception.*;
 import com.example.repository.AccountRepository;
 
 //Edited by Gabriel Evans
+/* I used the examples from the lectures and coding labs to help construct methods for the service class.
+ * Along with my previous DAO methods as references from the previous project.
+ * 
+ */
 @Service
 public class AccountService {
     @Autowired
@@ -28,17 +32,14 @@ public class AccountService {
         else if(accntReposit.doesUsernameAlreadyExist(account.getUsername()) != null){
             throw new DuplicateUserException();
         }
-        Account target = accntReposit.doesUsernameAlreadyExist(account.getUsername());
-        List<Account> listAccounts = accntReposit.findAll();
-        Account newAccount = accntReposit.save(account);
-        return newAccount;
+        return accntReposit.save(account);
     }
 
     /*The login will be successful if and only if the username and password provided in the request 
         body JSON match a real account existing on the database */
     //- If the login is not successful, the response status should be 401. (Unauthorized)
     public Account getAccount(Account account){
-        Optional<Account> compareAccount = accntReposit.findById(account.getAccountId());
+        Optional<Account> compareAccount = accntReposit.doesUsernameAndPasswordExist(account.getUsername(), account.getPassword());
         if(compareAccount.isPresent()){
             return compareAccount.get();
         }
