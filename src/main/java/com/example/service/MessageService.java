@@ -40,8 +40,13 @@ public class MessageService {
         return msgReposit.getAllUsersMessages(poster_ID);
     }
 
-    public void deleteMessage(int msgID){
+    public Message deleteMessage(int msgID){
+        Message msg = msgReposit.getById(msgID);
+        if(msg == null){
+            return null;
+        }
         msgReposit.deleteById(msgID);
+        return msg;
     }
 
     /*The update of a message should be successful if and only if the message id already 
